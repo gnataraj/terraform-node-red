@@ -9,6 +9,15 @@ terraform {
 
 provider "docker" {} 
 
- resource "docker_image" "nodered_image" {
+ resource "docker_image" "nodered-image" {
    name = "nodered/node-red:latest"  
+ }
+
+ resource "docker_container" "nodered-container"{
+     name ="nodered"
+     image = docker_image.nodered-image.latest
+     ports {
+         internal = 1880
+         external = 1880
+     }
  }
